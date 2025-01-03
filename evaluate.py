@@ -122,9 +122,6 @@ def eval(model_name: str='gpt2', model_name_or_path: str='gpt2', dataset: str='h
     for prompt in prompt_set:
         inputs = model_tokenizer(prompt, return_tensors="pt").to('cuda')
 
-        # if len(inputs) > 256:
-        #     continue
-
         with torch.no_grad():
             output = model.generate(**inputs, max_new_tokens=256, eos_token_id=model_tokenizer.eos_token_id)
         response_a = model_tokenizer.decode(output[0], skip_special_tokens=True)
